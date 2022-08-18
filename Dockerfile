@@ -13,7 +13,7 @@ RUN wget  http://chromedriver.storage.googleapis.com/92.0.4515.107/chromedriver_
 RUN unzip ./chromedriver_linux64.zip
 RUN chmod +x ./chromedriver
 RUN mv chromedriver /usr/bin
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm install
 #RUN mkdir /src
 COPY . .
