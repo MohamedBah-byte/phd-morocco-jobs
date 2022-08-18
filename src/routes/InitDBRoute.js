@@ -4,6 +4,6 @@ const router = express.Router();
 const initCtrl = require("../controllers/initDBController");
 
 //populate dababase
-router.get("/", initCtrl.populateDB);
+router.get("/", initCtrl.index);
 
 module.exports = router;
