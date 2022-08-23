@@ -8,6 +8,9 @@ const app = express();
 
 // the routes
 const initRoutes = require("./routes/InitDBRoute");
+const scrappingRoutes = require("./routes/scrappingRoute");
+// scrapping controllers
+const anapecCtrl = require("./controllers/scrappingAnapec");
 // add Access-Control-Allow-Origin
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -33,14 +36,17 @@ app.get("/", function (req, res) {
 
 app.use("/init", initRoutes);
 
+app.use("/scrapping", scrappingRoutes);
+
+
 app.use("/uploads", express.static("uploads"));
 
 
-/******************************** PREPROD SCRAPPINGS ********************************/
+/******************************** DEV SCRAPPINGS ********************************/
 
 
 /******************************** PROD SCRAPPINGS ********************************/
-
+anapecCtrl.anapec_html();
 
 /******************************** Periodic operations ********************************/
 
