@@ -27,6 +27,7 @@
     "google-it": "^1.6.2",
     "google-news-rss-to-js": "^1.0.2",
     "got": "^11.8.2",
+    "html-entities": "^2.3.3",
     "http": "0.0.1-security",
     "jsdom": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
