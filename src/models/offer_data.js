@@ -29,37 +29,28 @@ const offer_dataSchema = mongoose.Schema(
     country: {
       type: String,
     },
-    date: {
+    offer_date: {
       type: Date,
     },
     contract_type: {
       type: String,
     },
-    post_vacant: {
+    nb_posts: {
       type: Number,
     },
     diplome: {
       type: String,
     },
-    salary_min: {
-      type: Number,
+    salary: {
+      type: String,
     },
-    salary_max: {
-      type: Number,
-    },
-    experience_min: {
-      type: Number,
-    },
-    experience_max: {
-      type: Number,
+    experience: {
+      type: String,
     },
     org: {
       type: String,
     },
     sector: {
-      type: String,
-    },
-    org_size: {
       type: String,
     },
   },

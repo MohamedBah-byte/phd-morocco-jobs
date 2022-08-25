@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { create_offer_html, get_offer_html, update_offer_html } = require("../services/offer_html.service");
+const { PG_Insert_Offer } = require("../services/offer_data.service");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const helper = require('../helpers/helper');
@@ -96,13 +97,11 @@ exports.anapec_offer = async (req, res, next) => {
     while (true) {
         //get one offer html from db
         const offer_html = await get_offer_html({
-            config_html_processing: false,
             dev_config_html_processing: false,
             config_error_processing: false,
         });
-        try {
+        try{
             //parse html content
-            console.log(offer_html.html)
             var dom = new JSDOM(offer_html.html);
             var document = dom.window.document;
             //get title
@@ -116,39 +115,60 @@ exports.anapec_offer = async (req, res, next) => {
             //get city
             const city = document.querySelector(".ville")?.textContent;
             //get desc
-            const desc_1 = document.querySelector(".caracteristiques-poste")?.textContent;
-            const desc_2 = document.querySelector(".profile-description")?.textContent;
-            const desc = desc_1 + '\n\n\n\n' + desc_2;
+            const desc_1 = document.querySelector(".caracteristiques-poste")?document.querySelector(".caracteristiques-poste").textContent:'';
+            const desc_2 = document.querySelector(".profile-description")?document.querySelector(".profile-description").textContent:'';
+            const desc = desc_1 + ' \n\n\n\n ' + desc_2.replace('Description du profil :', '');
+            //get profile details
             //get experience
-            const experience = document.querySelector(".duree-experience")?.textContent;
+            const experience_start = '<p class="duree-experience rec-diplome rec3p3">Experience professionnelle</p>';
+            const experience_end = '</p>';
+            const experience = helper.removeStripSpaces(helper.extract_text_between(offer_html.html, experience_start, experience_end, true, true, true, true));
             //get emploim-metier
-            const emploim = document.querySelector(".emploim-metier")?.textContent;
+            const emploim_start = '<p class="rec-diplome emploim-metier rec3p3">Emploi-Metier</p>';
+            const emploim_end = '</p>';
+            const emploim = helper.removeStripSpaces(helper.extract_text_between(offer_html.html, emploim_start, emploim_end, true, true, true, true));
             //get langues
-            const lngs = document.querySelector(".emploi-langue")?.textContent;
+            const lngs_start = '<p class="rec-diplome emploi-langue rec3p3">Langue</p>';
+            const lngs_end = '</div>';
+            const lngs = helper.removeStripSpaces(helper.extract_text_between(offer_html.html, lngs_start, lngs_end));
             //get diplome
-            const diplome = document.querySelector(".diplome-detail")?.textContent;
+            const diplome_start = '<p class="diplome rec3p3">Diplome</p>';
+            const diplome_end = '</p>';
+            const diplome = helper.removeStripSpaces(helper.extract_text_between(offer_html.html, diplome_start, diplome_end, true, true, true, true));
+            //date 
+            const offer_date = offer_html.offer_date && offer_html.offer_date.length ? new Date(offer_html.offer_date.split('/')[2] + '-' + offer_html.offer_date.split('/')[1] + '-' + offer_html.offer_date.split('/')[0]) : null;
+            console.log(desc)
             const offer_data = {
-                title: title,
-                desc: desc,
-                contract: contract,
-                sector: sector,
-                city: city,
-                experience: experience,
-                emploim: emploim,
-                lngs: lngs,
-                diplome: diplome,
-                salary: salaire,
+                title: title?.replace(/'/g, '\'\''),
+                offer_link: offer_html.link,
+                website: offer_html.website,
+                description: desc ? desc.replace(/'/g, '\'\'') : null,
+                contract: contract ? contract.replace(/'/g, '\'\'') : null,
+                offer_date: offer_date?.toISOString(),
+                nb_posts: offer_html.nb_posts ? parseInt(offer_html.nb_posts) : 1,
+                sector: sector ? sector.replace(/'/g, '\'\'') : null,
+                city: city ? city.replace(/'/g, '\'\'') : null,
+                experience: experience ? experience.replace(/'/g, '\'\'') : null,
+                emploim: emploim ? emploim.replace(/'/g, '\'\'') : null,
+                lngs: lngs ? lngs.replace(/'/g, '\'\'').split(' ').join('\n') : null,
+                diplome: diplome ? diplome.replace(/'/g, '\'\'') : null,
+                salary: salaire ? salaire : null,
             }
+
+            //insert into pg
             console.log(offer_data)
-
+            const _id = await PG_Insert_Offer('data', 'offer_data', offer_data);
+            //offer processed
+            await update_offer_html({ _id: offer_html._id }, {
+                dev_config_html_processing: true,
+            });
+            console.log(_id)
         }
-        catch (err) {
-            await update_offer_html({ _id: offer_html._id }, { config_error_processing: true });
-            console.log('error offer : ' + offer_html._id)
+        catch(err){
+            await update_offer_html({ _id: offer_html._id}, {config_error_processing: true})
+            console.log('error offre_id : '+ offer_html._id + ' error : ', err)
         }
+   
 
-
-
-        break;
     }
 };
