@@ -167,6 +167,9 @@ exports.anapec_offer = async (req, res, next) => {
                 dev_config_html_processing: true,
             });
             console.log(_id)
+            //sleep 2 sec to not overload postgres with queries
+            console.log('🚀 offer processed sleep 2 secs')
+            await new Promise(r => setTimeout(r, 1000 * 2));
         }
         catch(err){
             console.log('error offre_id : '+ offer_html._id + ' error : ', err)
