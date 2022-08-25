@@ -6,11 +6,11 @@ services:
       - 80
     environment:
       - DB=mongodb://root:phd_2020@92.204.190.53:27028/morocco_jobs?authMechanism=DEFAULT&authSource=admin
-      - pg_user="postgres"
-      - pg_host="92.204.190.53"
-      - pg_database="morocco-jobs"
-      - pg_password="phd_2020"
-      - pg_port="5452"
+      - pg_user=postgres
+      - pg_host=92.204.190.53
+      - pg_database=morocco-jobs
+      - pg_password=phd_2020
+      - pg_port=5452
     ports:
       - 8901:80
     deploy:
