@@ -100,6 +100,10 @@ exports.anapec_offer = async (req, res, next) => {
             dev_config_html_processing: false,
             config_error_processing: false,
         });
+        if(!offer_html){
+            console.log('🚀 anapec nothing to process sleep for an hour ')
+            await new Promise(r => setTimeout(r, 1000 * 60 * 60));
+        }
         try{
             //parse html content
             var dom = new JSDOM(offer_html.html);
@@ -165,8 +169,9 @@ exports.anapec_offer = async (req, res, next) => {
             console.log(_id)
         }
         catch(err){
-            await update_offer_html({ _id: offer_html._id}, {config_error_processing: true})
             console.log('error offre_id : '+ offer_html._id + ' error : ', err)
+            await update_offer_html({ _id: offer_html._id}, {config_error_processing: true})
+            
         }
    
 
