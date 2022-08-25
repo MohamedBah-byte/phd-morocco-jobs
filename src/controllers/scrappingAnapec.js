@@ -141,9 +141,9 @@ exports.anapec_offer = async (req, res, next) => {
             const diplome = helper.removeStripSpaces(helper.extract_text_between(offer_html.html, diplome_start, diplome_end, true, true, true, true));
             //date 
             const offer_date = offer_html.offer_date && offer_html.offer_date.length ? new Date(offer_html.offer_date.split('/')[2] + '-' + offer_html.offer_date.split('/')[1] + '-' + offer_html.offer_date.split('/')[0]) : null;
-            console.log(desc)
+            // console.log(desc)
             const offer_data = {
-                title: title?.replace(/'/g, '\'\''),
+                title: title?title.replace(/'/g, '\'\''): (emploim? emploim.replace(/'/g, '\'\''):sector?.replace(/'/g, '\'\'')),
                 offer_link: offer_html.link,
                 website: offer_html.website,
                 description: desc ? desc.replace(/'/g, '\'\'') : null,
@@ -160,7 +160,7 @@ exports.anapec_offer = async (req, res, next) => {
             }
 
             //insert into pg
-            console.log(offer_data)
+            // console.log(offer_data)
             const _id = await PG_Insert_Offer('data', 'offer_data', offer_data);
             //offer processed
             await update_offer_html({ _id: offer_html._id }, {
