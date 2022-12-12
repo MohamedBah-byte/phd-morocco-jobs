@@ -1,4 +1,5 @@
 node {
+    if (BRANCH_NAME == "main") {
     def app
         stage('init work') {
         /* Cloning the Repository to our Workspace */
@@ -49,4 +50,4 @@ execCommand: "sudo docker stack deploy --compose-file /root/projects/morocco_job
       useWorkspaceInPromotion: false, 
       verbose: true)])
     }
-}
+}}
