@@ -13,7 +13,7 @@ services:
       #   constraints:  [node.hostname != v1-mtm-manager-1]
       labels:
         - "traefik.enable=true"
-        - "traefik.docker.network=traefik-public"  
+        - "traefik.docker.network=public"  
         - "traefik.http.routers.morocco_jobs.tls.certresolver=let"
         - "traefik.http.routers.morocco_jobs.entrypoints=websecure"
         - "traefik.http.services.morocco_jobs.loadbalancer.server.port=8901"
@@ -23,9 +23,9 @@ services:
         order: start-first
         delay: 1s
     networks:
-      - traefik-public
+      - public
 networks:
-    traefik-public:
+    public:
        external: true
 
 
