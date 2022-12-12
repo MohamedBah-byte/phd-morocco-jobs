@@ -47,7 +47,6 @@ app.use("/uploads", express.static("uploads"));
 
 /******************************** PROD SCRAPPINGS ********************************/
 anapecCtrl.anapec_html();
-anapecCtrl.anapec_offer();
 /******************************** Periodic operations ********************************/
 
 module.exports = app;

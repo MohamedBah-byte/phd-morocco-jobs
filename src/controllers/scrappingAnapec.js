@@ -1,6 +1,5 @@
 const axios = require("axios");
 const { create_offer_html, get_offer_html, update_offer_html } = require("../services/offer_html.service");
-const { PG_Insert_Offer } = require("../services/offer_data.service");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const helper = require('../helpers/helper');
@@ -87,8 +86,9 @@ exports.anapec_html = async (req, res, next) => {
                 console.log('🚀 error anapec sleep for an hour ')
                 await new Promise(r => setTimeout(r, 1000 * 60 * 60));
             }
-
         }
+        //sleep for an hour before next scraping
+        await new Promise(r => setTimeout(r, 1000 * 60 * 60));
     }
 };
 
@@ -159,10 +159,10 @@ exports.anapec_offer = async (req, res, next) => {
                 salary: salaire ? salaire : null,
             }
 
-            //insert into pg
+            //insert into mongo TODO
             // console.log(offer_data)
-            const _id = await PG_Insert_Offer('data', 'offer_data', offer_data);
-            //offer processed
+            
+            //offer processed TODO
             await update_offer_html({ _id: offer_html._id }, {
                 dev_config_html_processing: true,
             });
