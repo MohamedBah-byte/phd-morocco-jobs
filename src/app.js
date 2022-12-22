@@ -12,7 +12,7 @@ const scrappingRoutes = require("./routes/scrappingRoute");
 // scrapping controllers
 const anapecCtrl = require("./controllers/scrappingAnapec");
 const marocannonesCtrl = require("./controllers/scrappingMarocAnnonce");
-const emploimaCtrl = require("./controllers/scrappingEmploiMa");
+const emploimaCtrl = require("./controllers/scrappingEmploiMA");
 // add Access-Control-Allow-Origin
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
