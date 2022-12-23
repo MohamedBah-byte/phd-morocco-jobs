@@ -23,7 +23,7 @@ exports.emploima_html = async (req, res, next) => {
             try {
                 //check to put process too sleep
                 if (stop_count <= count_replicates) {
-                    console.log(count_replicates, stop_count)
+                    // console.log(count_replicates, stop_count)
                     //sleep for an hour
                     console.log('🚀 emploi ma nothing new sleep for an hour ')
                     await new Promise(r => setTimeout(r, 1000 * 60 * 60));
@@ -32,7 +32,7 @@ exports.emploima_html = async (req, res, next) => {
                     //reset duplicates count
                     count_replicates = 0;
                 }
-                console.log(i);
+                // console.log(i);
                 //get page
                 const resp = await axios.get(searchpage_1 + i);
                 var dom = new JSDOM(resp.data);

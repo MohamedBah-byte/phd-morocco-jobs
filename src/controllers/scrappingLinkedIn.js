@@ -40,29 +40,31 @@ exports.linkedin_html = async (req, res, next) => {
                 const table_elements = document.querySelectorAll("li");
                 for (let j = 0; j < table_elements.length; j++) {
                     try {
-                        //get job tokens 
-                        const job_id = table_elements[j].querySelector('div').getAttribute('data-entity-urn').split(':').pop();
-                        const job_tracking = table_elements[j].querySelector('div').getAttribute('data-tracking-id');
-                        const job_token = table_elements[j].querySelector('div').getAttribute('data-search-id');
-                        console.log(job_id, job_tracking, job_token);
-                        const offer_exists = await get_offer_html({ website: website, source_id: job_id });
-                        if (offer_exists) {
-                            continue;
-                        }
-                        else {
-                            const resp_offer = await axios.get(job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking);
-                            const random_sleep_job = Math.floor(Math.random() * 10) + 1;
-                            await new Promise(r => setTimeout(r, 1000 * random_sleep_job));
-                            const offer_html = {
-                                website: website,
-                                source_id: job_id,
-                                link: job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking,
-                                html: resp_offer.data,
-                            };
-                            await create_offer_html(offer_html);
-                        }
+                        if (table_elements[j].querySelector('div').getAttribute('data-entity-urn')) {
 
 
+                            //get job tokens 
+                            const job_id = table_elements[j].querySelector('div').getAttribute('data-entity-urn').split(':').pop();
+                            const job_tracking = table_elements[j].querySelector('div').getAttribute('data-tracking-id');
+                            const job_token = table_elements[j].querySelector('div').getAttribute('data-search-id');
+                            // console.log(job_id, job_tracking, job_token);
+                            const offer_exists = await get_offer_html({ website: website, source_id: job_id });
+                            if (offer_exists) {
+                                continue;
+                            }
+                            else {
+                                const resp_offer = await axios.get(job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking);
+                                const random_sleep_job = Math.floor(Math.random() * 10) + 1;
+                                await new Promise(r => setTimeout(r, 1000 * random_sleep_job));
+                                const offer_html = {
+                                    website: website,
+                                    source_id: job_id,
+                                    link: job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking,
+                                    html: resp_offer.data,
+                                };
+                                await create_offer_html(offer_html);
+                            }
+                        }
                     }
 
 
