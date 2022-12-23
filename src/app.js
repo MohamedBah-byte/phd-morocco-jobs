@@ -13,6 +13,7 @@ const scrappingRoutes = require("./routes/scrappingRoute");
 const anapecCtrl = require("./controllers/scrappingAnapec");
 const marocannonesCtrl = require("./controllers/scrappingMarocAnnonce");
 const emploimaCtrl = require("./controllers/scrappingEmploiMA");
+const linkedinCtrl = require("./controllers/scrappingLinkedIn");
 // add Access-Control-Allow-Origin
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -46,11 +47,11 @@ app.use("/uploads", express.static("uploads"));
 
 /******************************** DEV SCRAPPINGS ********************************/
 
-
 /******************************** PROD SCRAPPINGS ********************************/
 anapecCtrl.anapec_html();
 marocannonesCtrl.marocannonces_html();
 emploimaCtrl.emploima_html();
+linkedinCtrl.linkedin_html();
 /******************************** Periodic operations ********************************/
 
 module.exports = app;
