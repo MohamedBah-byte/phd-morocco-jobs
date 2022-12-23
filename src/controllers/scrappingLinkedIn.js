@@ -25,8 +25,8 @@ exports.linkedin_html = async (req, res, next) => {
 
                 //get page
                 const resp = await axios.get(searchpage_1 + (i * step));
-                const random_sleep = Math.floor(Math.random() * 10) + 1;
-                await new Promise(r => setTimeout(r, 1000 * random_sleep));
+                // const random_sleep = Math.floor(Math.random() * 10) + 1;
+                await new Promise(r => setTimeout(r, 20000 ));
                 // if negative response from api lay low and restart in 4 hours
                 if (resp.status !== 200) {
                     console.log('🚀 error maroc annonces sleep for 4 hours');
@@ -54,8 +54,8 @@ exports.linkedin_html = async (req, res, next) => {
                             }
                             else {
                                 const resp_offer = await axios.get(job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking);
-                                const random_sleep_job = Math.floor(Math.random() * 10) + 1;
-                                await new Promise(r => setTimeout(r, 1000 * random_sleep_job));
+                                // const random_sleep_job = Math.floor(Math.random() * 10) + 1;
+                                await new Promise(r => setTimeout(r, 1000 * 10));
                                 const offer_html = {
                                     website: website,
                                     source_id: job_id,
