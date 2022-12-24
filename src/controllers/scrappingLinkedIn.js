@@ -20,16 +20,16 @@ exports.linkedin_html = async (req, res, next) => {
     while (true) {
         //init counting replicates
         // let count_replicates = 0;
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 10; i++) {
             try {
 
                 //get page
                 const resp = await axios.get(searchpage_1 + (i * step));
                 // const random_sleep = Math.floor(Math.random() * 10) + 1;
-                await new Promise(r => setTimeout(r, 20000 ));
+                await new Promise(r => setTimeout(r, 10000 ));
                 // if negative response from api lay low and restart in 4 hours
                 if (resp.status !== 200) {
-                    console.log('🚀 error maroc annonces sleep for 4 hours');
+                    console.log('🚀 error linked in sleep for 4 hours');
                     await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
                     break;
                 }
@@ -55,7 +55,7 @@ exports.linkedin_html = async (req, res, next) => {
                             else {
                                 const resp_offer = await axios.get(job_api + job_id + '?refId=' + job_token + '&trackingId=' + job_tracking);
                                 // const random_sleep_job = Math.floor(Math.random() * 10) + 1;
-                                await new Promise(r => setTimeout(r, 1000 * 10));
+                                await new Promise(r => setTimeout(r, 1000 * 3));
                                 const offer_html = {
                                     website: website,
                                     source_id: job_id,
@@ -74,12 +74,13 @@ exports.linkedin_html = async (req, res, next) => {
 
                 }
             } catch (e) {
-                console.log('🚀 Error !!!!!!!', e);
-                console.log('🚀 error maroc annonces sleep for a day')
+                console.log('🚀 Error linkedin !!!!!!!', e);
+                console.log('🚀 error linked in sleep for a day')
                 await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 24));
             }
         }
-        //sleep for 4 hours before next scraping
-        await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
+        console.log('🚀 no new offers in linkedin !!!');
+        //sleep for 1 hour before next scraping
+        await new Promise(r => setTimeout(r, 1000 * 60 * 60));
     }
 };
