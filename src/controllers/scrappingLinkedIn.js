@@ -75,8 +75,8 @@ exports.linkedin_html = async (req, res, next) => {
                 }
             } catch (e) {
                 console.log('🚀 Error linkedin !!!!!!!', e);
-                console.log('🚀 error linked in sleep for a day')
-                await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 24));
+                console.log('🚀 error linkedin sleep for 4 hours')
+                await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
             }
         }
         console.log('🚀 no new offers in linkedin !!!');
