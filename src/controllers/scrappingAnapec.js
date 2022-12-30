@@ -7,7 +7,7 @@ const puppeteer = require("puppeteer");
 
 //base links
 //website link
-const website = "http://www.anapec.org";
+const website = "www.anapec.org";
 //the search page url is split into 2 parts since the arg we inject is in between the url
 const anapec_searchpage_1 = "http://www.anapec.org/sigec-app-rv/chercheurs/resultat_recherche/page:";
 const anapec_searchpage_2 = "/tout:all/language:fr"
