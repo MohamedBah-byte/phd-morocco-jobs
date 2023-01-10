@@ -49,10 +49,10 @@ app.use("/uploads", express.static("uploads"));
 
 /******************************** PROD SCRAPPINGS ********************************/
 anapecCtrl.anapec_html();
-marocannonesCtrl.marocannonces_html();
+// marocannonesCtrl.marocannonces_html();
 emploimaCtrl.emploima_html();
 linkedinCtrl.linkedin_html();
-// marocannonesCtrl.marocannonces_html_from_file();
+marocannonesCtrl.marocannonces_html_from_file();
 /******************************** Periodic operations ********************************/
 
 module.exports = app;

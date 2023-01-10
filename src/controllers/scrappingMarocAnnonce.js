@@ -105,7 +105,7 @@ exports.marocannonces_html_from_file = async (req, res, next) => {
                 }
             }
             catch (e) {
-                console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
+                console.log(' error scrapping page : ', i, ' error : ', e);
             }
         }
         
