@@ -4,7 +4,6 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const helper = require('../helpers/helper');
 const puppeteer = require("puppeteer");
-
 //base links
 //website link
 const website = "www.anapec.org";

@@ -2,6 +2,7 @@ const axios = require("axios");
 const { create_offer_html, get_offer_html, update_offer_html } = require("../services/offer_html.service");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+var data_array = require("../data/marocannonce_db.json");
 
 //base links
 //website link
@@ -79,6 +80,38 @@ exports.marocannonces_html = async (req, res, next) => {
             }
         }
         //sleep for an hour before next scraping
+        await new Promise(r => setTimeout(r, 1000 * 60 * 60));
+    }
+};
+
+exports.marocannonces_html_from_file = async (req, res, next) => {
+
+    try {
+        for (let i = 0; i< data_array.length; i++){
+            try {
+                const offer_exists = await get_offer_html({ website: website, source_id: data_array[i].lien_url.split('/')[7] });
+                if (!offer_exists) {
+                    //get offer html 
+                    const resp_offer = await axios.get(data_array[i].lien_url);
+
+                    const offer_html = {
+                        website: website,
+                        source_id: data_array[i].lien_url.split('/')[7],
+                        link: data_array[i].lien_url,
+                        html: resp_offer.data,
+                    };
+                    const offer = await create_offer_html(offer_html);
+                    console.log(offer._id)
+                }
+            }
+            catch (e) {
+                console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
+            }
+        }
+        
+    } catch (e) {
+        console.log('🚀 Error !!!!!!!', e);
+        console.log('🚀 error anapec sleep for an hour ')
         await new Promise(r => setTimeout(r, 1000 * 60 * 60));
     }
 };
