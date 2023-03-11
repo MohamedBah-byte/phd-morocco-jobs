@@ -14,6 +14,7 @@ const anapecCtrl = require("./controllers/scrappingAnapec");
 const marocannonesCtrl = require("./controllers/scrappingMarocAnnonce");
 const emploimaCtrl = require("./controllers/scrappingEmploiMA");
 const linkedinCtrl = require("./controllers/scrappingLinkedIn");
+const rmmcCtrl = require("./controllers/rmmcProcessing");
 // add Access-Control-Allow-Origin
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -48,11 +49,35 @@ app.use("/uploads", express.static("uploads"));
 /******************************** DEV SCRAPPINGS ********************************/
 
 /******************************** PROD SCRAPPINGS ********************************/
-anapecCtrl.anapec_html();
-marocannonesCtrl.marocannonces_html();
-emploimaCtrl.emploima_html();
-linkedinCtrl.linkedin_html();
+// anapecCtrl.anapec_html();
+// marocannonesCtrl.marocannonces_html();
+// emploimaCtrl.emploima_html();
+// linkedinCtrl.linkedin_html();
 // marocannonesCtrl.marocannonces_html_from_file();
 /******************************** Periodic operations ********************************/
+
+
+/******************************** rmmc operations ********************************/
+
+// rmmcCtrl.remove_punctuation_activite();
+// rmmcCtrl.remove_punctuation_connaissanceprocedurale();
+// rmmcCtrl.remove_punctuation_connaissancetheorique();
+// rmmcCtrl.remove_punctuation_savoirfaire();
+// rmmcCtrl.remove_punctuation_savoir();
+
+// rmmcCtrl.remove_duplicates_savoir();
+// rmmcCtrl.remove_duplicates_activite();
+// rmmcCtrl.remove_duplicates_connaissanceprocedurale();
+// rmmcCtrl.remove_duplicates_connaissancetheorique();
+// rmmcCtrl.remove_duplicates_savoirfaire();
+
+// rmmcCtrl.delete_activites();
+// rmmcCtrl.delete_connaissanceprocedurales();
+// rmmcCtrl.delete_connaissancetheoriques();
+// rmmcCtrl.delete_savoirfaires();
+// rmmcCtrl.delete_savoirs();
+
+
+// rmmcCtrl.delete_job_nomenclature_orphan_refrences();
 
 module.exports = app;

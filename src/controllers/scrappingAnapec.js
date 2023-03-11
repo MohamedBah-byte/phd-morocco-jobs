@@ -60,7 +60,7 @@ exports.anapec_html = async (req, res, next) => {
                         // get project url content
                         await page.goto(offer_link, { waitUntil: 'networkidle2' });
                         //wait for page to load
-                        await page.waitForTimeout(3000);
+                        await page.waitForTimeout(5000);
                         const page_data = await page.content();
 
                         const offer_html = {
@@ -82,12 +82,12 @@ exports.anapec_html = async (req, res, next) => {
                 }
             } catch (e) {
                 console.log('🚀 Error !!!!!!!', e);
-                console.log('🚀 error anapec sleep for an hour ')
-                await new Promise(r => setTimeout(r, 1000 * 60 * 60));
+                console.log('🚀 error anapec sleep for 4 hour ')
+                await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
             }
         }
-        //sleep for an hour before next scraping
-        await new Promise(r => setTimeout(r, 1000 * 60 * 60));
+        //sleep for 4 hour before next scraping
+        await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
     }
 };
 
