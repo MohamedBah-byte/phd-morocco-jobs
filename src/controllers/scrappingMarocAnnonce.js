@@ -69,13 +69,13 @@ exports.marocannonces_html = async (req, res, next) => {
 
                     }
                     catch (e) {
-                        console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
+                        // console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
                     }
 
                 }
             } catch (e) {
-                console.log('🚀 Error !!!!!!!', e);
-                console.log('🚀 error maroc annonces sleep for an hour ')
+                // console.log('🚀 Error !!!!!!!', e);
+                // console.log('🚀 error maroc annonces sleep for an hour ')
                 await new Promise(r => setTimeout(r, 1000 * 60 * 60));
             }
         }

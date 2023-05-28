@@ -29,7 +29,7 @@ exports.linkedin_html = async (req, res, next) => {
                 await new Promise(r => setTimeout(r, 10000 ));
                 // if negative response from api lay low and restart in 4 hours
                 if (resp.status !== 200) {
-                    console.log('🚀 error linked in sleep for 4 hours');
+                    // console.log('🚀 error linked in sleep for 4 hours');
                     await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
                     break;
                 }
@@ -69,17 +69,17 @@ exports.linkedin_html = async (req, res, next) => {
 
 
                     catch (e) {
-                        console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
+                        // console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
                     }
 
                 }
             } catch (e) {
-                console.log('🚀 Error linkedin !!!!!!!', e);
-                console.log('🚀 error linkedin sleep for 4 hours')
+                // console.log('🚀 Error linkedin !!!!!!!', e);
+                // console.log('🚀 error linkedin sleep for 4 hours')
                 await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
             }
         }
-        console.log('🚀 no new offers in linkedin !!!');
+        // console.log('🚀 no new offers in linkedin !!!');
         //sleep for 1 hour before next scraping
         await new Promise(r => setTimeout(r, 1000 * 60 * 60));
     }

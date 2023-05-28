@@ -13,7 +13,7 @@ const anapec_searchpage_2 = "/tout:all/language:fr"
 //the offer  mobile view version is more structured than the web version
 const anapec_offer_mobile = "http://m.anapec.org/mobile/offer.html?id="
 //stoping after n duplicates
-const stop_count = 15;
+const stop_count = 50;
 //time to sleep in between scrapping processes
 //get html of an offer to scrap
 exports.anapec_html = async (req, res, next) => {
@@ -27,8 +27,8 @@ exports.anapec_html = async (req, res, next) => {
                 if (stop_count == count_replicates) {
                     // console.log(count_replicates, stop_count)
                     //sleep for an hour
-                    console.log('🚀 anapec nothing new sleep for an hour ')
-                    await new Promise(r => setTimeout(r, 1000 * 60 * 60));
+                    console.log('🚀 anapec nothing new sleep for an 4 hours ')
+                    await new Promise(r => setTimeout(r, 4 * 1000 * 60 * 60));
                     //reset search
                     i = 1;
                     //reset duplicates count
@@ -41,6 +41,7 @@ exports.anapec_html = async (req, res, next) => {
                 var document = dom.window.document;
                 //get search page offers
                 const table_elements = document.querySelectorAll("#myTable > tbody > tr");
+                // console.log(table_elements.length)
                 for (let j = 0; j < table_elements.length; j++) {
                     try {
                         //get all offers elements from search page
@@ -60,7 +61,7 @@ exports.anapec_html = async (req, res, next) => {
                         // get project url content
                         await page.goto(offer_link, { waitUntil: 'networkidle2' });
                         //wait for page to load
-                        await page.waitForTimeout(5000);
+                        await page.waitForTimeout(10000);
                         const page_data = await page.content();
 
                         const offer_html = {

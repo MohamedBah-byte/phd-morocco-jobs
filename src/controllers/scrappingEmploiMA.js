@@ -25,7 +25,7 @@ exports.emploima_html = async (req, res, next) => {
                 if (stop_count <= count_replicates) {
                     // console.log(count_replicates, stop_count)
                     //sleep for an hour
-                    console.log('🚀 emploi ma nothing new sleep for an hour ')
+                    // console.log('🚀 emploi ma nothing new sleep for an hour ')
                     await new Promise(r => setTimeout(r, 1000 * 60 * 60));
                     //reset search
                     i = 1;
@@ -64,13 +64,13 @@ exports.emploima_html = async (req, res, next) => {
                             }
                     }
                     catch (e) {
-                        console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
+                        // console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
                     }
 
                 }
             } catch (e) {
-                console.log('🚀 Error !!!!!!!', e);
-                console.log('🚀 error emploi ma sleep for an hour ')
+                // console.log('🚀 Error !!!!!!!', e);
+                // console.log('🚀 error emploi ma sleep for an hour ')
                 await new Promise(r => setTimeout(r, 1000 * 60 * 60));
             }
         }
