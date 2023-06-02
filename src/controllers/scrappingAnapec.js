@@ -18,7 +18,6 @@ const stop_count = 50;
 //get html of an offer to scrap
 exports.anapec_html = async (req, res, next) => {
     // res.status(201).json('in bg');
-    while (true) {
         //init counting replicates
         let count_replicates = 0;
         for (let i = 1; i < 300; i++) {
@@ -89,7 +88,6 @@ exports.anapec_html = async (req, res, next) => {
         }
         //sleep for 4 hour before next scraping
         await new Promise(r => setTimeout(r, 1000 * 60 * 60 * 4));
-    }
 };
 
 exports.anapec_offer = async (req, res, next) => {
