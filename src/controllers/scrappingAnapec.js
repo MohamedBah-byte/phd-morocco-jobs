@@ -45,7 +45,8 @@ exports.anapec_html = async (req, res, next) => {
                     try {
                         //get all offers elements from search page
                         const offer_elts = table_elements[j].querySelectorAll('td');
-                        const offer_link = anapec_offer_mobile + offer_elts[1].querySelector('a').href.split('/')[5];
+                        // const offer_link = anapec_offer_mobile + offer_elts[1].querySelector('a').href.split('/')[5];
+                        const offer_link = 'http://www.anapec.org' + offer_elts[1].querySelector('a').href;
                         //check if offer exists in db and if so skip to next one
                         const offer_exists = await get_offer_html({ website: website, source_id: offer_elts[1].querySelector('a').href.split('/')[5] });
                         if (offer_exists) {
@@ -54,14 +55,16 @@ exports.anapec_html = async (req, res, next) => {
                         }
                         //get offer html
                         //init and lunch puppeteer browser 
-                        var browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-                        var page = (await browser.pages())[0];
-                        page.setDefaultNavigationTimeout(0);
-                        // get project url content
-                        await page.goto(offer_link, { waitUntil: 'networkidle2' });
-                        //wait for page to load
-                        await page.waitForTimeout(10000);
-                        const page_data = await page.content();
+                        // var browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+                        // var page = (await browser.pages())[0];
+                        // page.setDefaultNavigationTimeout(0);
+                        // // get project url content
+                        // await page.goto(offer_link, { waitUntil: 'networkidle2' });
+                        // //wait for page to load
+                        // await page.waitForTimeout(10000);
+                        // const page_data = await page.content();
+                        const resp_offer = await axios.get(offer_link);
+                        const page_data = resp_offer.data;
 
                         const offer_html = {
                             website: website,
@@ -72,8 +75,9 @@ exports.anapec_html = async (req, res, next) => {
                             link: offer_link,
                             html: page_data,
                         };
+                        // console.log(offer_html)
                         await create_offer_html(offer_html);
-                        await browser.close();
+                        // await browser.close();
                     }
                     catch (e) {
                         console.log(' error scrapping page : ', i, ' offer : ', j, ' error : ', e);
