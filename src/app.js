@@ -49,9 +49,9 @@ app.use("/uploads", express.static("uploads"));
 /******************************** DEV SCRAPPINGS ********************************/
 
 /******************************** PROD SCRAPPINGS ********************************/
-// cron.schedule("0 0 * * *", async () => {
+cron.schedule("0 12 * * *", async () => {
   anapecCtrl.anapec_html();
-// });
+});
 marocannonesCtrl.marocannonces_html();
 emploimaCtrl.emploima_html();
 linkedinCtrl.linkedin_html();
