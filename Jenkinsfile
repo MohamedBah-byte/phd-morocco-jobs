@@ -26,29 +26,29 @@ node {
             } 
                 echo "Trying to Push Docker"
     }
-    stage('send  and exécute docker compose to swarm') {
-    sshPublisher(
-publishers: 
-[sshPublisherDesc(
-    configName: 'phd',
-     transfers: [sshTransfer(
-         cleanRemote: false, 
-         excludes: '', 
-// execCommand: "sudo docker stack deploy --compose-file /home/ubuntu/projects/refrom/reform-front/docker-compose.yml reform",
-// execCommand: "sudo docker stack deploy --compose-file /root/projects/morocco_jobs/docker-compose.yml phd",
-execCommand: "sudo docker stack deploy --compose-file /home/ghassane/projects/compose-files/jobs-scraper/docker-compose.yml phd",
-//    execCommand:"echo test",
-  execTimeout: 120000, 
-      flatten: false, 
-      makeEmptyDirs: true, 
-      noDefaultExcludes: false, 
-      patternSeparator: '[, ]+', 
-      remoteDirectory: '/projects/morocco_jobs', 
-      remoteDirectorySDF: false, 
-      removePrefix: '', 
-      sourceFiles: '**/docker-compose.yml')], 
-      usePromotionTimestamp: false, 
-      useWorkspaceInPromotion: false, 
-      verbose: true)])
-    }
+//     stage('send  and exécute docker compose to swarm') {
+//     sshPublisher(
+// publishers: 
+// [sshPublisherDesc(
+//     configName: 'phd',
+//      transfers: [sshTransfer(
+//          cleanRemote: false, 
+//          excludes: '', 
+// // execCommand: "sudo docker stack deploy --compose-file /home/ubuntu/projects/refrom/reform-front/docker-compose.yml reform",
+// // execCommand: "sudo docker stack deploy --compose-file /root/projects/morocco_jobs/docker-compose.yml phd",
+// execCommand: "sudo docker stack deploy --compose-file /home/ghassane/projects/compose-files/jobs-scraper/docker-compose.yml phd",
+// //    execCommand:"echo test",
+//   execTimeout: 120000, 
+//       flatten: false, 
+//       makeEmptyDirs: true, 
+//       noDefaultExcludes: false, 
+//       patternSeparator: '[, ]+', 
+//       remoteDirectory: '/projects/morocco_jobs', 
+//       remoteDirectorySDF: false, 
+//       removePrefix: '', 
+//       sourceFiles: '**/docker-compose.yml')], 
+//       usePromotionTimestamp: false, 
+//       useWorkspaceInPromotion: false, 
+//       verbose: true)])
+//     }
 }}
