@@ -1,11 +1,11 @@
 version: '3.4'
 services:
   morocco_jobs:
-    image: localhost:5000/morocco_jobs:latest
+    image: 127.0.0.1:5000/morocco_jobs:latest
     expose:
       - 80
     environment:
-      - DB=mongodb://root:phd_2020@localhost:29098/morocco_jobs?authMechanism=DEFAULT&authSource=admin
+      - DB=mongodb://root:phd_2020@127.0.0.1:29098/morocco_jobs?authMechanism=DEFAULT&authSource=admin
     ports:
       - 8901:80
     deploy:
